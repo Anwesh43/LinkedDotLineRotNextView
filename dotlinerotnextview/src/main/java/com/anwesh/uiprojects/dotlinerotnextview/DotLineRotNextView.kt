@@ -201,5 +201,13 @@ class DotLineRotNextView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    companion object {
+        fun create(activity: Activity) : DotLineRotNextView {
+            val view : DotLineRotNextView = DotLineRotNextView(activity)
+            activity.setContentView(view)
+            return view 
+        }
+    }
 }
 
