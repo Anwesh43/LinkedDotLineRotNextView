@@ -26,7 +26,7 @@ fun Canvas.drawDotLine(size : Float, scale : Float, ballDraw : Boolean, paint : 
     rotate(rotDeg * scale)
     drawLine(0f, 0f, -size, 0f, paint)
     if (ballDraw) {
-        drawCircle(0f, -size, size / rFactor, paint)
+        drawCircle(-size, 0f, size / rFactor, paint)
     }
     restore()
 }
@@ -41,7 +41,7 @@ fun Canvas.drawDLRNode(i : Int, scale : Float, ballDraw : Boolean, paint : Paint
     paint.color = foreColor
     paint.strokeCap = Paint.Cap.ROUND
     save()
-    translate(w / 2, gap * (i + 1))
+    translate(gap * (i + 1), h / 2)
     drawDotLine(size, scale, ballDraw, paint)
     restore()
 }
