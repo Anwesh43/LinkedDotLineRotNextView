@@ -49,15 +49,16 @@ fun Canvas.drawDLRNode(i : Int, scale : Float, ballDraw : Boolean, paint : Paint
 class DotLineRotNextView(ctx : Context) : View(ctx) {
 
     private val paint : Paint = Paint(Paint.ANTI_ALIAS_FLAG)
+    private val renderer : Renderer = Renderer(this)
 
     override fun onDraw(canvas : Canvas) {
-
+        renderer.render(canvas, paint)
     }
 
     override fun onTouchEvent(event : MotionEvent) : Boolean {
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
-
+                renderer.handleTap()
             }
         }
         return true
@@ -206,7 +207,7 @@ class DotLineRotNextView(ctx : Context) : View(ctx) {
         fun create(activity: Activity) : DotLineRotNextView {
             val view : DotLineRotNextView = DotLineRotNextView(activity)
             activity.setContentView(view)
-            return view 
+            return view
         }
     }
 }
