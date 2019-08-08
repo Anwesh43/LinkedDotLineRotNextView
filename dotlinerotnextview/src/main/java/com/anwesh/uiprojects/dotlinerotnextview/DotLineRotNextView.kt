@@ -179,5 +179,27 @@ class DotLineRotNextView(ctx : Context) : View(ctx) {
             curr.startUpdating(cb)
         }
     }
+
+    data class Renderer(var view : DotLineRotNextView) {
+
+        private val animator : Animator = Animator(view)
+        private val dlr : DotLineRotNext = DotLineRotNext(0)
+
+        fun render(canvas : Canvas, paint : Paint) {
+            canvas.drawColor(backColor)
+            dlr.draw(canvas, paint)
+            animator.animate {
+                dlr.update {i, scl ->
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            dlr.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
 
