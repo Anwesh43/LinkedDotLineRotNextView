@@ -111,5 +111,49 @@ class DotLineRotNextView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    data class DLRNode(var i : Int, val state : State = State()) {
+
+        private var next : DLRNode? = null
+        private var prev : DLRNode? = null
+
+        init {
+            addNeighbor()
+        }
+
+        fun addNeighbor() {
+            if (i < nodes - 1) {
+                next = DLRNode(i + 1)
+                next?.prev = this
+            }
+        }
+
+        fun draw(canvas : Canvas, paint : Paint, currI : Int) {
+            canvas.drawDLRNode(i, state.scale, currI == i, paint)
+            next?.draw(canvas, paint, currI)
+        }
+
+        fun update(cb : (Int, Float) -> Unit) {
+            state.update {
+                cb(i, it)
+            }
+        }
+
+        fun startUpdating(cb : () -> Unit) {
+            state.startUpdating(cb)
+        }
+
+        fun getNext(dir : Int, cb : () -> Unit) : DLRNode {
+            var curr : DLRNode? = prev
+            if (dir == 1) {
+                curr = next
+            }
+            if (curr != null) {
+                return curr
+            }
+            cb()
+            return this
+        }
+    }
 }
 
